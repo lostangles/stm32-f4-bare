@@ -38,7 +38,7 @@ $(EXECUTABLE): src/*.c stm/*.c stm/*.s
 	
 # "make install" to flash the firmware to the target STM32F0 chip
 install:
-	openocd -f config_openocd_stm32f0.cfg -c "stm_flash $(BIN_IMAGE)"
+	st-flash --reset write $(BIN_IMAGE) 0x8000000
 
 # "make debug_server" to establish a connector to the st-link v2 programmer/debugger
 # this server will stay running until manually closed with Ctrl-C

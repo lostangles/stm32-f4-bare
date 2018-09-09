@@ -3,7 +3,7 @@
 
 #include "lib_i2c.h"
 #include "stdarg.h"
-#include "stm32f429xx.h"
+#include "stm32f4xx.h"
 
 /**
  * Configures the I2C peripheral.

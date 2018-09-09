@@ -97,6 +97,8 @@ void mpu6050_hmc5883l_setup(enum GPIO_PIN sck_pin, enum GPIO_PIN sda_pin, enum G
 		i2c = I2C1;
 	else if(sck_pin == PB8 && sda_pin == PB7)
 		i2c = I2C1;
+	else if (sck_pin == PB8 && sda_pin == PB9)
+		i2c = I2C1;
 	else if(sck_pin == PF1 && sda_pin == PF0)
 		i2c = I2C2;
 	else if(sck_pin == PB10 && sda_pin == PB11)

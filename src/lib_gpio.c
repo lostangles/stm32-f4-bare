@@ -211,6 +211,12 @@ void gpio_setup(enum GPIO_PIN	pin,
 		regValue |= (1 << (pinNum % 8) * 4 + 2);
 		regValue &= ~(1 << (pinNum % 8) * 4 + 3);
 		break;
+	case AF8:
+		regValue &= ~(1 << (pinNum % 8) * 4);
+		regValue &= ~(1 << (pinNum % 8) * 4 + 1);
+		regValue &= ~(1 << (pinNum % 8) * 4 + 2);
+		regValue |= (1 << (pinNum % 8) * 4 + 3);
+		break;
 	}
 
 	if (pinNum < 8)

@@ -27,6 +27,8 @@ void uart_setup(enum GPIO_PIN tx_pin, uint32_t baud) {
 		usart = USART2;
 	else if(tx_pin == PD8)
 		usart = USART3;
+	else if (tx_pin == PC6)
+		usart = USART6;
 	else		
 		return;
 
@@ -35,6 +37,8 @@ void uart_setup(enum GPIO_PIN tx_pin, uint32_t baud) {
 		gpio_setup(tx_pin, AF, PUSH_PULL, FIFTY_MHZ, NO_PULL, AF0);
 	else if(tx_pin == PD8)
 		gpio_setup(tx_pin, AF, PUSH_PULL, FIFTY_MHZ, NO_PULL, AF7);
+	else if (tx_pin == PC6)
+		gpio_setup(tx_pin, AF, PUSH_PULL, FIFTY_MHZ, NO_PULL, AF8);
 	else
 		gpio_setup(tx_pin, AF, PUSH_PULL, FIFTY_MHZ, NO_PULL, AF1);
 
@@ -57,6 +61,12 @@ void uart_setup(enum GPIO_PIN tx_pin, uint32_t baud) {
 		RCC->APB1RSTR |= RCC_APB1RSTR_USART2RST;
 		RCC->APB1RSTR &= ~RCC_APB1RSTR_USART2RST;
 	}
+	else if(usart == USART6)
+		{
+			RCC->APB2ENR |= RCC_APB2ENR_USART6EN;
+			RCC->APB2RSTR |= RCC_APB2RSTR_USART6RST;
+			RCC->APB2RSTR &= ~RCC_APB2RSTR_USART6RST;
+		}
 	
 
 	// enable DMA for TX
@@ -160,6 +170,8 @@ void uart_tx_via_dma(void) {
 		dma = DMA1_Stream4;
 	else if (usart == USART3)
 		dma = DMA1_Stream4;
+	else if (usart == USART6)
+		dma = DMA2_Stream6;
 	else		
 		return;
 
@@ -170,7 +182,10 @@ void uart_tx_via_dma(void) {
 	dma->PAR  = (uint32_t) &usart->DR;
 	dma->M0AR = (uint32_t) uart_tx_buffer;
 	dma->NDTR = i;
-	dma->CR   = (0x07 << DMA_SxCR_CHSEL_Pos) | (DMA_SxCR_MINC) | (DMA_SxCR_DIR_0) | (DMA_SxCR_EN);
+	if (usart == USART6)
+		dma->CR   = (0x05 << DMA_SxCR_CHSEL_Pos) | (DMA_SxCR_MINC) | (DMA_SxCR_DIR_0) | (DMA_SxCR_EN);
+	else
+		dma->CR   = (0x07 << DMA_SxCR_CHSEL_Pos) | (DMA_SxCR_MINC) | (DMA_SxCR_DIR_0) | (DMA_SxCR_EN);
 
 }
 

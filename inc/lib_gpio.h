@@ -23,7 +23,7 @@ enum GPIO_MODE { INPUT, OUTPUT, AF, ANALOG };
 enum GPIO_TYPE { PUSH_PULL, OPEN_DRAIN };
 enum GPIO_SPEED { TWO_MHZ, TEN_MHZ, FIFTY_MHZ };
 enum GPIO_PULL { NO_PULL, PULL_UP, PULL_DOWN };
-enum GPIO_AF { AF0, AF1, AF2, AF3, AF4, AF5, AF6, AF7 };
+enum GPIO_AF { AF0, AF1, AF2, AF3, AF4, AF5, AF6, AF7, AF8 };
 
 inline void gpio_high(enum GPIO_PIN pin) {
 	*(volatile uint32_t*)(GPIO_BASE_ADDRESS + ((pin / 16) * 0x0400) + 0x18) = (1 << (pin % 16));

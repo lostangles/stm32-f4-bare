@@ -7,7 +7,7 @@ CC=arm-none-eabi-gcc
 OBJCOPY=arm-none-eabi-objcopy
 
 # debugging and optimization flags
-CFLAGS   = -g -O1 -DSTM32 -DSTM32F4 -DSTM32F429xx
+CFLAGS   = -g -O1 -DSTM32 -DSTM32F4 -DSTM32F429xx -DARM_MATH_CM4
 CFLAGS  += -Wl,--gc-sections
 #CFLAGS += -ffunction-sections -fdata-sections
 

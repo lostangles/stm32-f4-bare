@@ -44,6 +44,7 @@
 #include "lib_i2c.h"
 #include "mpu6050.h"
 #include "lib_uart.h"
+#include "lib_time.h"
 
 extern I2C_TypeDef *i2c;
 
@@ -62,7 +63,7 @@ int main(void)
 {
 
 	SystemCoreClockUpdate();
-
+	EnableCycles();
 	gpio_setup(PB7, OUTPUT, PUSH_PULL, FIFTY_MHZ, NO_PULL, AF0);
 	mpu6050_hmc5883l_setup(PF1, PF0, PF2, &process_new_sensor_values);
 	uart_setup(PD8, 115200);
@@ -70,9 +71,9 @@ int main(void)
 	while (1)
 	{
 	  gpio_high(PB7);
-	  for (int i=0;i<10000000;i++);
+	  sleepMs(1000);
 	  gpio_low(PB7);
-	  for (int i=0;i<10000000;i++);
+	  sleepMs(1000);
 	}
 }
 
